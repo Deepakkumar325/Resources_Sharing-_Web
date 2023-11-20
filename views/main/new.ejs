@@ -1,0 +1,69 @@
+<nav class="navbar navbar-expand-lg navbar-light st" style="box-shadow: 20px 10px 10px #303234;">
+    <a class="navbar-brand" href="/"><img width="100" height="50" src="/img/logo-no-background.png" alt=""></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="/main">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link active" href="/main/new">Upload</a>
+            <a class="nav-item nav-link active" href="/qna">Q&A</a>
+            <a class="nav-item nav-link active" href="/users/logout">logout</a>
+        </div>
+    </div>
+</nav>
+
+
+
+<br>
+<br>
+
+
+<h1 class="card-title text-center font-weight-bold">
+    New Notes
+</h1>
+<%- include("_messages") %>
+<form  class ="container bg-light"style="box-shadow:10px 10px 5px black;" action="/main/new" method="post" enctype="multipart/form-data">
+<div class="form-group mb-2">
+    <label for="post-title" class="font-weight-bold">Title</label>
+    <input class="form-control" id="post-title" required type="text" placeholder="Enter the title of the Notes" name="title">
+</div>
+
+<div class="form-group mb-2">
+    <label for="summary" class="font-weight-bold" >Summary</label>
+    <textarea class="form-control" name="sum" id="summary"   rows="5"  placeholder="Enter the Summary of the Notes"></textarea>
+    </div>
+
+<div class="form-group">
+    <label for="tags">Enter Tags</label>
+    <input type="text" class="form-control" id="tags" aria-describedby="emailHelp" placeholder="branch ,subject name"
+        name="tags" required> 
+    <small id="tagAlert" class="form-text text-muted text-danger">
+        <p class="text-danger">Seperate more than one tags with Space!!</p>
+    </small>
+</div>
+<div  class="form-group mb-3 ">
+<label for="visibility"><strong> Notes Visibility:</strong></label>
+<select id="visibility" name="visibility">
+   <option value="public">Public</option>
+   <option value="private">Private</option>
+</select>
+</div>
+
+<div class="form-group d-flex flex-row justify-content-center">    
+    <label for="res-doc" class="font-weight-bold">Attach the Pdf File</label>
+    <input required name="file" type="file" class="form-control-file" id="res-doc">
+</div>
+
+
+<div class="d-flex flex-row justify-content-center">
+
+    <button type="submit" class="btn btn-primary mx-3 my-3">Submit</button>
+    <a  href="/main/" class="btn btn-danger mx-3 my-3">Cancel</a>
+</div>
+
+</form>
+
+<br>
+

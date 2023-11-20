@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-lg navbar-light st" style="box-shadow: 20px 10px 10px #303234;">
+    <a class="navbar-brand" href="/"><img width="100" height="50" src="/img/logo-no-background.png" alt=""></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link active" href="/users/login">Login</a>
+            <a class="nav-item nav-link active" href="/users/register">Register</a>
+            
+        </div>
+    </div>
+</nav>
+
+<div class="row mt-5 mb-5">
+    <div class="col-md-6 m-auto">
+        <div class="card card-body" style="box-shadow:8px 8px 3px black;">
+            <h1 class="text-center mb-3"><i class="fas fa-sign-in-alt"></i> Login</h1>
+            <%- include("_messages") %>
+
+            <form action="/users/login" method="POST">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="Enter Email" />
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" class="form-control"
+                        placeholder="Enter Password" />
+                </div>
+                <button type="submit" class="btn btn-info btn-block">Login</button>
+            </form>
+            <p class="lead mt-4">
+                No Account? <a href="/users/register">Register</a>
+            </p>
+        </div>
+    </div>
+</div>

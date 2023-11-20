@@ -1,0 +1,124 @@
+<nav class="navbar navbar-expand-lg navbar-light st w-100" style="box-shadow: 20px 10px 10px #303234;">
+  <a class="navbar-brand" href="/"><img width="100" height="50" src="/img/logo-no-background.png" alt=""></a>
+
+
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+
+
+
+          <a class="nav-item nav-link active" href="/main">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-item nav-link" href="/main/new">Upload</a>
+          <a class="nav-item nav-link" href="/qna">Q&A</a>
+          <a class="nav-item nav-link" href="/users/logout">Logout</a>
+
+
+      </div>
+  </div>
+</nav>
+<br>
+<%- include("_messages") %>
+
+<h2 class="text-center my-3">The Q & A section </h2>
+<div class="container bg-light" style="box-shadow: 10px 10px 5px black;">
+<form method="POST" action="/qna">
+   
+ 
+  
+  <div class="form-group">
+
+    <label for="exampleFormControlTextarea1">Enter your doubt here</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="question" required></textarea>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Enter Tags</label>
+    <input type="text" class="form-control" id="tags" aria-describedby="emailHelp" placeholder="Enter the Tags Here..."
+      name="tags">
+    <small id="tagAlert" class="form-text text-muted text-danger">
+      <p class="text-danger">Seperate more than one tags with Space!!</p>
+    </small>
+  </div>
+  <div class="d-flex align-self-center flex-row justify-content-around">
+      <a href="/main/" class="btn btn-danger"> Cancel</a>
+      <button type="submit" class="btn btn-success align-center">Submit</button>
+  </div>
+</form>
+<br>
+</div>
+<br>
+<br>
+<div class="container" >
+<h1 class="text-center font-weight-bold">
+Questions
+</h1>
+<form action="/qna/search" method="POST"class="form-inline">
+
+<div class="form-group mr-10 ml-10">
+  
+  <input class="form-control form-control-lg" type="text" placeholder="Search here for fields.." name="tags" >
+</div>
+<button type="submit" class="btn btn-success">Search</button>
+</form>
+<% questions.forEach((q)=>{ %>
+<div class="card my-5" style="box-shadow:10px 10px 5px black;" data-id="<%= q.id %>">
+<div class="card-body">
+  <h5 class="card-title font-weight-bold"><%= q.question %></h5>
+  <h6 class="card-subtitle mb-2 text-muted">-by <%= q.user %><br> <%= q.createdAt %></h6>
+  <% q.tags.forEach(t=>{ %>
+    <span class="badge badge-success"><%= t %> </span>
+  <% }) %> 
+  <div class=" like-unlike">
+  
+    <i class="fa fa-comments comment-button" id="comment-button-<%=q.id %>" data-id="<%= q.id %>"
+      onclick="showComments(event)" style="margin: 5px 5px;"><%= q.answers.length %></i>
+  
+  </div>
+  <div class="mt-24 mr-4 ml-4 comment-box" id="comment-box-<%= q.id %>"
+    style="overflow-y: auto; margin-top: 40px; display: none;">
+    <div class="card-title" style="margin-top: 32px;">
+      
+        <div class="form-group " style="display:flex;flex-direction: row;">
+  
+          <input type="text" name="comment" id="input-<%= q.id %>" class="form-control mb-10 mt-10"
+            placeholder="Write a comment">
+          <button type="submit" id="" class="btn btn-primary add-Answer" data-id="<%= q.id %>" onclick="addAnswers(event)">Send</button>
+        </div>
+      
+      <h4>Answers</h4>
+    </div>
+  
+    <% q.answers.forEach(a=>{ %>
+    <div class="card" class="each-comment"
+      style="display: flex; flex-direction: row; justify-content: start ;height: auto;">
+  
+  
+      <div class="profile pr-0">
+        <img src="../../img/profile.png" class="mt-2" width="20%" height="40px" alt="...">
+        <%= a.user %>
+      </div>
+  
+      <div class="card-body">
+        <p class="card-text" style="text-align: start; font-size: 1.2em;">
+          <%=a.ans %>
+        </p>
+      </div>
+    </div>
+  
+    <% }) %>
+  
+  </div>
+  
+</div>
+</div>
+
+
+<% }) %>
+
+
+</div> <br>
+

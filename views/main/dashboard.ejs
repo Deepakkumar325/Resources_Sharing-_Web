@@ -1,0 +1,123 @@
+<nav class="navbar navbar-expand-lg  navbar-light st " style="box-shadow: 20px 10px 10px #1e2125;  ;">
+    <a class="navbar-brand" href="/"><img width="100" height="50" src="/img/logo-no-background.png" alt=""></a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+
+            <a class="nav-item effect nav-link active" href="/main">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-item effect nav-link active" href="/main/new">Upload</a>
+            <a class="nav-item effect nav-link active" href="/qna">Q&A</a>
+            <a class="nav-item effect nav-link active" href="/myfile">My Notes</a>
+            <a class="nav-item effect nav-link active" href="/users/logout" >Logout</a>
+            <a class="nav-item effect nav-link active"   ><strong class="glow">Welcome!! <%= user%> </strong></a>
+        </div>
+    </div>
+       
+</nav>
+
+
+
+
+
+
+<h1 class="mt-4 text-center font-weight-bold">Dashboard</h1>
+
+<form action="/main/search" method="POST" class="form" class="d-flex flex-row justify-content-space-around border border-outline">
+
+    <div class="form-group mr-10 ml-10 d-flex flex-row">
+ 
+        <input class="form-control form-control-lg mr-20" type="text" placeholder="Search here using tags..."
+            name="tags">
+        <button type="submit" class="btn btn-success mx-5">Search</button>
+    </div>
+</form>
+<div class="container mt-20">
+    
+<% posts.forEach((post)=>{ %>
+<div class="card my-5" style="box-shadow:10px 10px 5px black;" data-id="<%= post.id %>">
+    <div class="card-body">
+        
+        <h5 class="card-title font-weight-bold"><strong >Title</strong> : <%= post.title %></h5>
+        
+        <h6 class="card-subtitle mb-2 text-blod"><strong>Author:</strong> <%= post.author %><br> <strong>Post Date:</strong>  <%= post.createdAt %></h6>
+        <strong>Tags:</strong>
+        <% post.tags.forEach(t=>{ %>
+        <span class="badge badge-success" > <%= t %> </span>
+        <% }) %>
+        <br>
+        <strong>Summary:</strong>
+        <p class="card-text font-weight-bold " style="font-family: 'Helvetica', sans-serif;"><%= post.sum %></p>       
+        <div class="d-flex flex-row align-items-center" id="like-unlike-btn" >
+            <a href="/docs/<%=post.filename %>" target="_blank" class="card-link text-center mr-2" style="cursor: pointer;" >
+                <i class="fas fa-file-pdf" style="color: #ff0000; font-size: 18px;"></i>
+            </a>
+            <a href="/docs/<%= post.filename %>" download="<%= post.title %>.pdf" class="card-link text-center mr-3" style="cursor: pointer;">
+                 <i class="fas fa-download"  style="color: #007BFF; font-size: 18px;"></i> 
+            </a>
+            <div class="like-unlike mr-3"  >
+                <i class="fa fa-thumbs-up like-button" data-id="<%= post.id %>" style=" cursor: pointer; margin: 5px 5px; font-size: 18px;"
+                        data-index="<%= post.likes.findIndex(v=>v.email==user.email) %>" onclick="toggleLike(event)">
+                    <%= post.likes.length %>
+                </i>
+            </div>
+            <div class="like-unlike mr-3 "  >
+                <i class="fa fa-comments comment-button" id="comment-button-<%=post.id %>" data-id="<%= post.id %>"
+                         onclick="showComments(event)" style="cursor: pointer; margin: 5px 5px; font-size: 18px;" style="cursor: pointer;">
+                   <%= post.comments.length %>
+                </i>
+            </div>
+            <div class="like-unlike"  >
+                <i class="fas fa-envelope-square send-mail-button" id="send-button-<%=post.id %>" data-id="<%= post.id %>"
+                       onclick="sendMail(event)" style="cursor: pointer; margin: 5px 5px; font-size: 18px;"></i>
+            </div>
+        </div>
+        
+    </div>
+    <div class="mt-24 mr-4 ml-4 comment-box" id="comment-box-<%= post.id %>" style="overflow-y: auto; margin-top: 40px; display: none;">
+    <div class="card-title" style="margin-top: 32px;">
+        
+            <div class="form-group " style="display:flex;flex-direction: row;">
+        
+                <input type="text" name="comment" id="input-<%= post.id %>" class="form-control mb-10 mt-10"
+                    placeholder="Write a comment">
+                <button id="" onclick="addComment(event)" class="btn btn-primary add-comment" data-id="<%= post.id %>">Send</button>
+            </div>
+       
+        <h4>Comments</h4>
+    </div>
+    
+    <% post.comments.forEach(comment=>{ %>
+    <div class="card" class="each-comment"
+        style="display: flex; flex-direction: row; justify-content: start ;height: auto;">
+    
+    
+        <div class="profile pr-0">
+            <img src="../../img/profile.png" class="mt-2" width="20%" height="40px" alt="...">
+            <%= comment.name %>
+        </div>
+    
+        <div class="card-body">
+            <p class="card-text" style="text-align: start; font-size: 1.2em;">
+                <%=comment.comment %>
+            </p>
+        </div>
+    </div>
+    
+    <% }) %>
+    
+    </div>
+    
+</div>
+
+
+<% }) %>
+
+
+</div>
+
+ 
+ 

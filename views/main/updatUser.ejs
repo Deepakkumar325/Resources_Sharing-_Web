@@ -1,0 +1,36 @@
+<h1  style="text-align: center;">Update Notes</h1>
+    <form action="/update/<%= post._id %>" method="POST" class="container mt-4 needs-validation bg-light" novalidate>
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" value="<%= post.title %>" class="form-control" required>
+            <div class="invalid-feedback">Please enter a title.</div>
+        </div>
+        
+        <div class="form-group">
+            <label for="author">Author:</label>
+            <input type="text" id="author" name="author" value="<%= post.author %>" class="form-control" required>
+            <div class="invalid-feedback">Please enter an author.</div>
+        </div>
+        
+        <div class="form-group">
+            <label for="sum">Summary:</label>
+            <textarea id="sum" name="sum" class="form-control" required><%= post.sum %></textarea>
+            <div class="invalid-feedback">Please enter a summary.</div>
+        </div>
+        
+        <div class="form-group">
+            <label for="tags">Tags:</label>
+            <input type="text" id="tags" name="tags" value="<%= post.tags.join(', ') %>" class="form-control" required>
+            <div class="invalid-feedback">Please enter at least one tag.</div>
+        </div>
+    
+        <div class="form-group">
+            <a href="/docs/<%= post.filename %>" class="btn btn-primary" target="_blank"><%= post.filename %></a>
+        </div>
+    
+        <div class="form-group">
+            <button type="submit" class="btn btn-success">Update Post</button>
+            <a  href="/main" type="submit"  class="btn btn-info">back Post</a>
+        </div>
+    </form>
+    
